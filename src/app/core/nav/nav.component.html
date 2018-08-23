@@ -1,8 +1,9 @@
 <header class="header">
-    <nav class="navbar navbar-fixed-top">
-        <!-- logo -->
-        <div class="navbar-brand">
-            <a class="md-title-icon" href="http://angular.io" target="_blank"><i></i></a>
-        </div>
+    <nav class="navbar-light bg-light navbar-fixed-top">
+
+        <a class="navbar-brand" href="#">
+            <img src="../../../assets/ps-icon.png" width="30" height="30" alt="">
+        </a>
+        <filter-text (changed)="filterChanged($event)"></filter-text>
     </nav>
 </header>

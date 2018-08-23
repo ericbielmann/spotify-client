@@ -5,6 +5,10 @@ import { AppComponent } from './app.component';
 
 /* Feature Modules */
 import { CoreModule } from './core/core.module';
+import { DashboardModule } from "./dashboard/dashboard.module";
+
+/* Routing Module */
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +16,9 @@ import { CoreModule } from './core/core.module';
   ],
   imports: [
     BrowserModule,
-    CoreModule
+    CoreModule,
+    DashboardModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

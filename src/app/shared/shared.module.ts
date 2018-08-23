@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { FilterTextModule } from './filter-text/filter-text.module'
+
 // import { ToastComponent } from './toast/toast.component';
 
 // imports: imports the module's exports. which are usually
@@ -12,8 +14,8 @@ import { FormsModule } from '@angular/forms';
 // SharedModule does not use CommonModule, but does use FormsModule.
 // Even so, we import/export both of these because most other modules will import SharedModule and will need them.
 @NgModule({
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FilterTextModule, FormsModule],
   declarations: [/*ToastComponent*/],
-  exports: [CommonModule, FormsModule/*, ToastComponent*/],
+  exports: [CommonModule, FilterTextModule, FormsModule/*, ToastComponent*/],
 })
 export class SharedModule { }
