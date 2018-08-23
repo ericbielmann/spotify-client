@@ -1,6 +1,6 @@
 <div class="filter-comp">
-  <div class="textfield">
-    <label for="filterText">Filter...</label>
-    <input type="text" id="filterText" [(ngModel)]="filter" (keyup)="filterChanged($event)" />
+  <div class="inner-addon left-addon">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    <input type="text" id="filterText" class="form-control" [(ngModel)]="filter" (keyup)="filterChanged($event)" />
   </div>
 </div>
