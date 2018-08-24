@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
   selector: 'filter-text',
@@ -7,6 +7,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class FilterTextComponent {
   @Output() changed: EventEmitter<string>;
+  @Input() placeholder: string;
 
   filter: string;
 

@@ -1,3 +1,9 @@
-<p>
-  dashboard works!
-</p>
+<div class="container">
+  <p><strong>Welcome to</strong></p>
+  <h1>Spotify</h1>
+  <p>Search your favourite songs over Spotify, just enter an artist's name in the following search box and enjoy</p>
+
+  <div class="row">
+    <filter-text (changed)="filterChanged($event)" class="float-right" placeholder="Type the name of your favourite artist"></filter-text>
+  </div>
+</div>
