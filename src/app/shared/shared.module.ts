@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { FilterTextModule } from './filter-text/filter-text.module'
+import { MusicCardComponent } from "./music-card/music-card.component";
 
 // import { ToastComponent } from './toast/toast.component';
 
@@ -15,7 +16,7 @@ import { FilterTextModule } from './filter-text/filter-text.module'
 // Even so, we import/export both of these because most other modules will import SharedModule and will need them.
 @NgModule({
   imports: [CommonModule, FilterTextModule, FormsModule],
-  declarations: [/*ToastComponent*/],
-  exports: [CommonModule, FilterTextModule, FormsModule/*, ToastComponent*/],
+  declarations: [/*ToastComponent*/MusicCardComponent],
+  exports: [CommonModule, FilterTextModule, FormsModule, MusicCardComponent/*, ToastComponent*/],
 })
 export class SharedModule { }
