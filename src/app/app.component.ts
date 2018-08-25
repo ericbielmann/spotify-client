@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { TokenService } from './core/token.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,4 +9,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'spotify-client';
+
+  constructor(private tokenService: TokenService) {
+  }
 }

@@ -10,7 +10,7 @@
 var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
-var cookieParser = require('cookie-parser');
+// var cookieParser = require('cookie-parser');
 
 var client_id = '1f4a897986b04196a52925a1ac0e6b39'; // Your client id
 var client_secret = 'd6f369e1238f43e1a959447dcd09fc05'; // Your secret
@@ -38,8 +38,8 @@ var authToken, refreshToken;
 
 var app = express();
 
-app.use(express.static(__dirname + '/ngspotify'))
-   .use(cookieParser());
+app.use(express.static(__dirname + '/spotify-client'))
+  //  .use(cookieParser());
 
 
 app.get('/login', function(req, res) {

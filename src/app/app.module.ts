@@ -1,4 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -6,6 +8,7 @@ import { AppComponent } from './app.component';
 /* Feature Modules */
 import { CoreModule } from './core/core.module';
 import { DashboardModule } from "./dashboard/dashboard.module";
+import { CallbackModule } from "./callback/callback.module";
 
 /* Routing Module */
 import { AppRoutingModule } from './app-routing.module';
@@ -16,7 +19,10 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    HttpModule,
     CoreModule,
+    CallbackModule,
     DashboardModule,
     AppRoutingModule
   ],

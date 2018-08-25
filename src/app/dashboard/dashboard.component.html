@@ -4,10 +4,46 @@
   <p>Search your favourite songs over Spotify, just enter an artist's name in the following search box and enjoy</p>
 
   <div class="row">
+    <button (click)="login()" class="btn btn-success">Login</button>
+  </div>
+  <div class="row">
     <filter-text (changed)="filterChanged($event)" class="float-right" placeholder="Type the name of your favourite artist"></filter-text>
-    <music-card>
+    <!-- <music-card>
       <h4>Title</h4>
       <span>Some text</span>
-    </music-card>
+    </music-card> -->
+  </div>
+
+  <div class="row">
+    <div *ngIf="artistRes">
+      <div *ngFor="let item of artistRes" class="res border rounded">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="search-res">
+              <div *ngIf="item.images.length > 0">
+                <img class="artist-thumb rounded-circle" [src]="item.images[0].url">
+              </div>
+              <a [routerLink]="['/artist',item.id]">
+                <h4 class="item-name">{{ item.name }}</h4>
+              </a>
+              <div>
+                Genres:
+                <span *ngIf="item.genres.length">
+                  <span *ngFor="let genre of item.genres">
+                    {{ genre | titlecase }},
+                  </span>
+                </span>
+                <span *ngIf="!item.genres.length">
+                  <span>
+                    Genre not found.
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
