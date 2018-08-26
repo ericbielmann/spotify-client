@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" id="dashboard">
   <p><strong>Welcome to</strong></p>
   <h1>Spotify</h1>
   <p>Search your favourite songs over Spotify, just enter an artist's name in the following search box and enjoy</p>
@@ -15,31 +15,18 @@
   </div>
 
   <div class="row">
-    <div *ngIf="artistRes">
-      <div *ngFor="let item of artistRes" class="res border rounded">
+    <div *ngIf="artistRes" class="artists d-inline-flex flex-wrap mt-2">
+      <div *ngFor="let item of artistRes" class="card border rounded ml-4 mr-5">
 
         <div class="row">
           <div class="col-md-12">
             <div class="search-res">
-              <div *ngIf="item.images.length > 0">
-                <img class="artist-thumb rounded-circle" [src]="item.images[0].url">
+              <div class="float-left">
+                <img class="artist-thumb rounded-circle" [src]="item.images.length > 0 ? item.images[0].url : defaultImage">
               </div>
-              <a [routerLink]="['/artist',item.id]">
-                <h4 class="item-name">{{ item.name }}</h4>
+              <a class="artist-link" [routerLink]="['/artist',item.id]">
+                <strong class="item-name">{{ item.name }}</strong>
               </a>
-              <div>
-                Genres:
-                <span *ngIf="item.genres.length">
-                  <span *ngFor="let genre of item.genres">
-                    {{ genre | titlecase }},
-                  </span>
-                </span>
-                <span *ngIf="!item.genres.length">
-                  <span>
-                    Genre not found.
-                  </span>
-                </span>
-              </div>
             </div>
           </div>
         </div>

@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
 
   private userInfo: any;
   private artistRes: Artist[];
+  private defaultImage = 'assets/default-image.png';
 
   constructor(private spotifyService: SpotifyService, private tokenService: TokenService) {
     // this.spotifyService.login().subscribe(data=> console.log(data));
@@ -32,7 +33,6 @@ export class DashboardComponent implements OnInit {
 
   filterChanged(event) {
     this.spotifyService.searchMusic(event).subscribe(data => {
-      debugger
       this.artistRes = data.artists.items;
     });
   }
