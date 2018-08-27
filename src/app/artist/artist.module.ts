@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { ArtistComponent } from './artist.component';
 import { ArtistRoutingModule } from './artist-routing.module';
-import { TokenService } from '../core/token.service';
+import { SpotifyService } from '../services/spotify.service';
 
 @NgModule({
     imports: [
@@ -11,6 +11,6 @@ import { TokenService } from '../core/token.service';
         ArtistRoutingModule
     ],
     declarations: [ArtistComponent],
-    providers: [TokenService]
+    providers: [SpotifyService]
 })
 export class ArtistModule { }

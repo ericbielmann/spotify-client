@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from '../core/token.service';
 
 @Component({
-  selector: 'app-callback',
+  selector: 'callback',
   templateUrl: './callback.component.html'
 })
 export class CallbackComponent implements OnInit {

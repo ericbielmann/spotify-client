@@ -55,14 +55,6 @@ export class SpotifyService {
             }, error => console.log(error));
     }
 
-    // searchMusic(str: string, type = 'artist') {
-    //     let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'aa' });
-    //     let options = new RequestOptions({ headers: headers });
-    //     this.searchUrl = 'https://api.spotify.com/v1/search?query=' + str + '&offset=0&limit=20&type=' + type + '&market=US';
-    //     return this.http.get(this.searchUrl, options)
-    //         .map(res => res.json());
-    // }
-
     searchMusic(str: string, type = 'artist') {
         const options = this.getOptions();
         this.searchUrl = 'https://api.spotify.com/v1/search?query=' + str + '&offset=0&limit=20&type=' + type + '&market=US';
@@ -78,7 +70,9 @@ export class SpotifyService {
 
     getArtist(id: string) {
         this.artistUrl = 'https://api.spotify.com/v1/artists/' + id;
-        return this.http.get(this.artistUrl)
+        const headers = new Headers();
+        headers.append(`Authorization`, `Bearer ${this.tokenService.returnToken()}`);
+        return this.http.get(this.artistUrl, { headers })
             .map(res => res.json());
     }
 

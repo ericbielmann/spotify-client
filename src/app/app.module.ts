@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 /* Feature Modules */
-import { ArtistModule } from "./artist/artist.module";
+// import { ArtistModule } from "./artist/artist.module";
 import { CoreModule } from './core/core.module';
 import { DashboardModule } from "./dashboard/dashboard.module";
 import { CallbackModule } from "./callback/callback.module";
@@ -22,7 +22,7 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     HttpClientModule,
     HttpModule,
-    ArtistModule,
+    // ArtistModule,
     CoreModule,
     CallbackModule,
     DashboardModule,

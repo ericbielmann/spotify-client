@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common'; 
-import { NgModule }           from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { CallbackComponent }     from './callback.component';
+import { CallbackComponent } from './callback.component';
 import { CallbackRoutingModule } from './callback-routing.module';
 import { TokenService } from '../core/token.service';
 
@@ -10,7 +10,7 @@ import { TokenService } from '../core/token.service';
     CommonModule,
     CallbackRoutingModule
   ],
-  declarations: [ CallbackComponent ],
-  providers:    [TokenService ]
+  declarations: [CallbackComponent],
+  providers: [TokenService]
 })
 export class CallbackModule { }
