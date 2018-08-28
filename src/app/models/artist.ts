@@ -6,7 +6,7 @@ export class Artist {
         href: string;
         total: number;
     };
-    genres: string[];
+    genres: Array<string>;
     href: string;
     id: string;
     images: object[];

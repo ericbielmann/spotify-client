@@ -11,8 +11,8 @@ import { Album } from '../models/album';
 })
 export class ArtistComponent implements OnInit {
 
-    artist?: Artist;
-    albums?: Album[];
+    private artist?: Artist;
+    private albums?: Album[];
 
     constructor(private route: ActivatedRoute, private spotifyService: SpotifyService) { }
 
@@ -28,16 +28,16 @@ export class ArtistComponent implements OnInit {
 
     private getArtist(id: string) {
         this.spotifyService.getArtist(id)
-            .subscribe(artist => {
+            .subscribe((artist: Artist) => {
                 this.artist = artist;
             });
     }
 
     private getArtistAlbums(id: string) {
-        // this.spotifyService.getArtistAlbums(id)
-        //     .subscribe(albums => {
-        //         this.albums = albums.items;
-        //     });
+        this.spotifyService.getArtistAlbums(id)
+            .subscribe((albums: any) => {
+                this.albums = albums.items;
+            });
     }
 
 }

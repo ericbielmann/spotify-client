@@ -21,8 +21,8 @@ export class DashboardComponent implements OnInit {
 
     if (this.userInfo === undefined) {
       this.spotifyService.getUserInfo()
-        .subscribe(res => {
-          this.userInfo = res;
+        .subscribe((data: any) => {
+          this.userInfo = data;
         });
     }
   }
@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
   }
 
   filterChanged(event) {
-    this.spotifyService.searchMusic(event).subscribe(data => {
+    this.spotifyService.searchMusic(event).subscribe((data: any) => {
       this.artistRes = data.artists.items;
     });
   }
