@@ -10,10 +10,10 @@
 var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
-// var cookieParser = require('cookie-parser');
+var cookieParser = require('cookie-parser');
 
-var client_id = '1f4a897986b04196a52925a1ac0e6b39'; // Your client id
-var client_secret = 'd6f369e1238f43e1a959447dcd09fc05'; // Your secret
+var client_id = '44352ea60e344eb4b595ffa032e1325f'; // Your client id
+var client_secret = '2097f12fa0344ab1b95b25a230c671ae'; // Your secret
 var redirect_uri = 'http://localhost:3232/callback'; // Your redirect uri
 
 var accessToken, refreshToken;
@@ -23,7 +23,7 @@ var accessToken, refreshToken;
  * @param  {number} length The length of the string
  * @return {string} The generated string
  */
-var generateRandomString = function(length) {
+var generateRandomString = function (length) {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -39,10 +39,15 @@ var authToken, refreshToken;
 var app = express();
 
 app.use(express.static(__dirname + '/spotify-client'))
-  //  .use(cookieParser());
+  .use(cookieParser())
+  .use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 
-app.get('/login', function(req, res) {
+app.get('/login', function (req, res) {
 
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -59,7 +64,7 @@ app.get('/login', function(req, res) {
     }));
 });
 
-app.get('/callback', function(req, res) {
+app.get('/callback', function (req, res) {
 
   // your application requests refresh and access tokens
   // after checking the state parameter
@@ -88,7 +93,7 @@ app.get('/callback', function(req, res) {
       json: true
     };
 
-    request.post(authOptions, function(error, response, body) {
+    request.post(authOptions, function (error, response, body) {
       if (!error && response.statusCode === 200) {
 
         accessToken = body.access_token;
@@ -101,7 +106,7 @@ app.get('/callback', function(req, res) {
         };
 
         // use the access token to access the Spotify Web API
-        request.get(options, function(error, response, body) {
+        request.get(options, function (error, response, body) {
           console.log(body);
         });
 
@@ -121,7 +126,7 @@ app.get('/callback', function(req, res) {
   }
 });
 
-app.get('/refresh_token', function(req, res) {
+app.get('/refresh_token', function (req, res) {
 
   // requesting access token from refresh token
   refreshToken = req.query.refresh_token;
@@ -135,7 +140,7 @@ app.get('/refresh_token', function(req, res) {
     json: true
   };
 
-  request.post(authOptions, function(error, response, body) {
+  request.post(authOptions, function (error, response, body) {
     if (!error && response.statusCode === 200) {
       accessToken = body.access_token;
       res.send({
@@ -159,7 +164,7 @@ setInterval(function updateToken() {
     json: true
   };
 
-  request.post(authOptions, function(error, response, body) {
+  request.post(authOptions, function (error, response, body) {
     if (!error && response.statusCode === 200) {
       accessToken = body.access_token;
       console.log('New Access Token: ', accessToken);
@@ -170,7 +175,7 @@ setInterval(function updateToken() {
   });
 }, 1000 * 60 * 5);
 
-app.get('/get_token', function(req, res) {
+app.get('/get_token', function (req, res) {
   res.send({
     'access_token': accessToken
   });
