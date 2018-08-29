@@ -1,7 +1,7 @@
 <div *ngIf="artist" id="artist-comp">
     <header class="artist-header">
         <div *ngIf="artist.images.length > 0">
-            <img class="artist-thumb rounded-circle" [src]="artist.images[0].url">
+            <img class="img-thumb rounded-circle" [src]="artist.images[0].url">
         </div>
         <h1>{{ artist.name }}</h1>
         <p *ngIf="artist.genres && artist.genres.length > 0">
@@ -9,17 +9,44 @@
             <span *ngFor="let genre of artist.genres">{{ genre | titlecase }}, </span>
         </p>
     </header>
-    <ul class="row album-list">
-        <li *ngFor="let album of albums" class="center col-md-3">
-            <div class="album">
-                <div *ngIf="album.images.length > 0">
-                    <img class="album-thumb img-thumbnail" [src]="album.images[0].url">
-                    <p>{{ album.name }}</p>
-                    <a [routerLink]="['/album/',album.id]" class="btn btn-secondary">
-                        Album Details
-                    </a>
+    <!-- <div class="row">
+        <div class="albums album-list d-flex flex-wrap mt-2 w-100">
+            <div *ngFor="let album of albums" class="center card border rounded col-md-3 ml-4 mr-5">
+                <div class="row">
+                    <div *ngIf="album.images.length > 0">
+                        <div class="float-left">
+                            <img class="album-thumb img-thumbnail rounded-circle" [src]="album.images[0].url">
+                        </div>
+                        <div class="row">
+                            <p>{{ album.name }}</p>
+                            <a [routerLink]="['/album/',album.id]" class="btn btn-secondary">
+                                Album Details
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </li>
-    </ul>
+        </div>
+    </div> -->
+
+    <div class="row">
+        <div *ngIf="albums" class="albums d-flex flex-wrap mt-2 w-100">
+            <div *ngFor="let album of albums" class="card border rounded ml-4 mr-5">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="search-res">
+                            <div class="float-left">
+                                <img class="img-thumb rounded-circle" [src]="album.images[0].url">
+                            </div>
+                            <p>{{ album.name }}</p>
+                            <a [routerLink]="['/album/',album.id]" class="btn btn-secondary">
+                                Album Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
