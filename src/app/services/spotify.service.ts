@@ -127,6 +127,14 @@ export class SpotifyService {
     //         .map(res => res.json());
     // }
 
+    getAlbum(id: string) {
+        return this.http
+          .get(`https://api.spotify.com/v1/albums/${id}`)
+          .pipe(
+            catchError(this.handleError)
+          );
+      }
+
     private getOptions() {
         console.log(this.accessToken);
         console.log(this.tokenType);

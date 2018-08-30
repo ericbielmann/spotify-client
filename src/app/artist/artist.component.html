@@ -39,9 +39,8 @@
                             <div class="float-left">
                                 <img class="img-thumb rounded-circle" [src]="album.images[0].url">
                             </div>
-                            <p>{{ album.name }}</p>
-                            <a [routerLink]="['/album/',album.id]" class="btn btn-secondary">
-                                Album Details
+                            <a class="album-link" [routerLink]="['/album/',album.id]">
+                                <strong class="item-name">{{ album.name }}</strong>
                             </a>
                         </div>
                     </div>
