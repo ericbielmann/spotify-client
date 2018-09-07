@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatProgressBarModule } from '@angular/material';
+// import { MaterialModule } from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 
 import { ExceptionService } from './exception.service';
@@ -12,7 +15,7 @@ import { TokenInterceptor } from "./token.interceptor";
 import { TokenService } from "./token.service";
 
 @NgModule({
-  imports: [CommonModule, SharedModule],
+  imports: [CommonModule, /*MaterialModule,*/BrowserAnimationsModule, MatProgressBarModule, SharedModule],
   declarations: [FooterComponent, NavComponent, SpinnerComponent],
   exports: [CommonModule, FooterComponent, NavComponent, SpinnerComponent],
   providers: [

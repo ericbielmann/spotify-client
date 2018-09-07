@@ -3,9 +3,11 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
-import {catchError} from "rxjs/internal/operators";
+// import { catchError } from "rxjs/internal/operators";
+import { catchError, finalize } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { TokenService } from '../core/token.service';
+import { SpinnerService } from '../core/spinner/spinner.service'
 
 import { Artist } from "../models/artist";
 import { Album } from "../models/album";
@@ -25,11 +27,13 @@ export class SpotifyService {
 
     private httpOptions = {
         headers: new HttpHeaders({
-          'Content-Type':  'application/json'
+            'Content-Type': 'application/json'
         })
-      };
+    };
 
-    constructor(private http: HttpClient, private tokenService: TokenService) {
+    constructor(private http: HttpClient,
+        private tokenService: TokenService,
+        private spinnerService: SpinnerService) {
         this.getToken();
     }
 
@@ -44,7 +48,7 @@ export class SpotifyService {
             .get('https://api.spotify.com/v1/me')
             .pipe(
                 catchError(this.handleError)
-              );
+            );
     }
 
     getToken() {
@@ -52,7 +56,7 @@ export class SpotifyService {
     }
 
     login() {
-        
+
         let authorizationTokenUrl = `https://accounts.spotify.com/api/token`;
         // let authorizationTokenUrl = `/api/token`;
 
@@ -79,46 +83,46 @@ export class SpotifyService {
             })
             .pipe(
                 catchError(this.handleError)
-              );
+            );
     }
 
     searchMusic(str: string, type = 'artist') {
         const options = this.getOptions();
+        this.spinnerService.show();
         this.searchUrl = 'https://api.spotify.com/v1/search?query=' + str + '&offset=0&limit=20&type=' + type + '&market=US';
-        // return this.http.get(this.searchUrl, options)
-        //     .map(res => res.json());
-
-        // const headers = new Headers();
-        // headers.append(`Authorization`, `Bearer ${this.tokenService.returnToken()}`);
-        // return this.http
-        //     .get(this.searchUrl), { headers })
-        //     .map(data => data.json());
 
         return this.http
             .get(this.searchUrl)
             .pipe(
-                catchError(this.handleError)
+                catchError(this.handleError),
+                finalize(()=> this.spinnerService.hide())
               );
     }
 
     getArtist(id: string) {
+        this.spinnerService.show();
         this.artistUrl = 'https://api.spotify.com/v1/artists/' + id;
         // const headers = new Headers();
         // headers.append(`Authorization`, `Bearer ${this.tokenService.returnToken()}`);
         // return this.http.get(this.artistUrl, { headers })
         //     .map(res => res.json());
+
+
         return this.http.get<Artist>(this.artistUrl)
-        .pipe(
-            catchError(this.handleError)
-          );
+            .pipe(
+                catchError(this.handleError),
+                finalize(()=> this.spinnerService.hide())
+            );
     }
 
     getArtistAlbums(artistId: string) {
+        this.spinnerService.show();
         this.albumsUrl = `https://api.spotify.com/v1/artists/${artistId}/albums`;
         return this.http.get(this.albumsUrl)
-        .pipe(
-            catchError(this.handleError)
-          );
+            .pipe(
+                catchError(this.handleError),
+                finalize(()=> this.spinnerService.hide())
+            );
     }
 
     // getAlbum(id: string) {
@@ -128,12 +132,13 @@ export class SpotifyService {
     // }
 
     getAlbum(id: string) {
+        this.spinnerService.show();
         return this.http
-          .get(`https://api.spotify.com/v1/albums/${id}`)
-          .pipe(
-            catchError(this.handleError)
-          );
-      }
+            .get(`https://api.spotify.com/v1/albums/${id}`)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
 
     private getOptions() {
         console.log(this.accessToken);
@@ -148,17 +153,17 @@ export class SpotifyService {
 
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
-          // A client-side or network error occurred. Handle it accordingly.
-          console.error('An error occurred:', error.error.message);
+            // A client-side or network error occurred. Handle it accordingly.
+            console.error('An error occurred:', error.error.message);
         } else {
-          // The backend returned an unsuccessful response code.
-          // The response body may contain clues as to what went wrong,
-          console.error(
-            `Backend returned code ${error.status}, ` +
-            `body was: ${error.error}`);
+            // The backend returned an unsuccessful response code.
+            // The response body may contain clues as to what went wrong,
+            console.error(
+                `Backend returned code ${error.status}, ` +
+                `body was: ${error.error}`);
         }
         // return an observable with a user-facing error message
         return throwError(
-          'Something bad happened; please try again later.');
-      };
+            'Something bad happened; please try again later.');
+    };
 }

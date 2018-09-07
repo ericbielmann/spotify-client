@@ -1,1 +1,7 @@
-<div class="spinner mdl-spinner mdl-js-spinner mdl-spinner--single-color" [class.is-active]="visible"></div>
+<div [class.loader-hidden]="!show">
+    <div class="loader-overlay">
+            <div>
+                <mat-progress-bar mode="indeterminate" *ngIf="show"></mat-progress-bar>
+            </div>
+    </div>
+</div>
