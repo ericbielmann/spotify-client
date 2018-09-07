@@ -21,12 +21,16 @@
     <div class="album-tracks">
         <h2>Album Tracks</h2>
         <div *ngFor="let track of album.tracks.items">
-            <div class="track-container">
+            <div class="track-container border rounded">
                 <h5>{{track.track_number}} - {{track.name}}</h5>
                 <a *ngIf="track.preview_url" class="btn btn-secondary btn-preview" [href]="track.preview_url" target="_blank">Preview
-                    Track</a>
+                    Track
+                </a>
                 <a *ngIf="!track.preview_url" class="btn btn-secondary btn-preview" [href]="track.external_urls.spotify" target="_blank">Listen
                     in Spotify</a>
+                <span class="float-right">
+                    <i class="far fa-star" style="font-size: 30px"></i>
+                </span>
             </div>
         </div>
     </div>

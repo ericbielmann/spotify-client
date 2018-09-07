@@ -136,7 +136,8 @@ export class SpotifyService {
         return this.http
             .get(`https://api.spotify.com/v1/albums/${id}`)
             .pipe(
-                catchError(this.handleError)
+                catchError(this.handleError),
+                finalize(()=> this.spinnerService.hide())
             );
     }
 
