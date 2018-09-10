@@ -20,12 +20,13 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
   private favorites = [];
   private searchText = '';
 
-  constructor(private route: ActivatedRoute, 
-    private spotifyService: SpotifyService, 
-    private tokenService: TokenService, 
+  constructor(private route: ActivatedRoute,
+    private spotifyService: SpotifyService,
+    private tokenService: TokenService,
     private cdRef: ChangeDetectorRef) {
-    // this.spotifyService.login().subscribe(data=> console.log(data));
+  }
 
+  ngOnInit() {
     if (this.userInfo === undefined) {
       this.spotifyService.getUserInfo()
         .subscribe((data: any) => {
@@ -34,13 +35,9 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
     }
 
     this.searchText = this.route.snapshot.paramMap.get('searchText');
-    if(this.searchText) {
+    if (this.searchText) {
       this.filterChanged(this.searchText);
     }
-  }
-
-  ngOnInit() {
-    this.spotifyService.getToken();
   }
 
   ngAfterViewInit() {
@@ -60,4 +57,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
   login() {
     this.tokenService.login();
   }
+
+  //add ondestroy
 }
