@@ -7,11 +7,39 @@
     <button (click)="login()" class="btn btn-success">Login</button>
   </div>
   <div class="row">
-    <filter-text (changed)="filterChanged($event)" class="float-right" placeholder="Type the name of your favourite artist"></filter-text>
+    <filter-text (changed)="filterChanged($event)" class="float-right" [filter]="searchText" placeholder="Type the name of your favourite artist"></filter-text>
     <!-- <music-card>
       <h4>Title</h4>
       <span>Some text</span>
     </music-card> -->
+  </div>
+
+  <div class="mt-4 row" *ngIf="!artistRes">
+    <h4>Favorite Songs</h4>
+    <div class="artists d-flex flex-wrap mt-2 w-100">
+      <div *ngFor="let track of favorites" class="ml-4 mr-5">
+        <div class="row track-container border rounded">
+          <div class="float-left col-3">
+            <img class="thumb rounded" [src]="track.albumImage">
+          </div>
+          <div class="col-9">
+            <h5>{{track.track_number}} - {{track.name}}</h5>
+            <audio *ngIf="track.preview_url" controls [src]="track.preview_url"></audio>
+            <audio *ngIf="!track.preview_url" controls [src]="track.external_urls.spotify"></audio>
+
+            <!-- <a *ngIf="track.preview_url" [href]="track.preview_url" target="_blank">
+                      Preview Track
+                    </a> -->
+            <!-- <a *ngIf="!track.preview_url" class="btn btn-secondary btn-preview" [href]="track.external_urls.spotify" target="_blank">Listen
+                    in Spotify</a> -->
+            <div>Artist: {{track.artists[0].name}}</div>
+            <div>Album: {{track.albumName}}</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <hr/>
   </div>
 
   <div class="row">

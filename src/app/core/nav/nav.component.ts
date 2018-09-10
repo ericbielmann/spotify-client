@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 // import { MessageService, ModalService } from '../core.module';
 // import { FilterTextComponent } from '../../shared/filter-text/filter-text.component';
@@ -17,12 +18,14 @@ export class NavComponent implements OnInit {
   ngOnInit() {
   }
 
-  constructor(private filterService: FilterTextService
-    /*private messageService: MessageService,
-  private modalService: ModalService*/) {
+  constructor(private filterService: FilterTextService,
+    private router: Router) {
   }
 
   filterChanged(searchText: string) {
     this.filteredList = this.filterService.filter(searchText, ['id', 'name', 'side'], this.list);
+    if(searchText.length > 3) {
+      this.router.navigate(['dashboard', {searchText: searchText}]);
+    }
   }
 }

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { Artist } from "../models/artist";
 import { SpotifyService } from "../services/spotify.service";
@@ -10,13 +12,18 @@ import { TokenService } from "../core/token.service";
   styleUrls: ['./dashboard.component.scss'],
   providers: [SpotifyService]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   private userInfo: any;
   private artistRes: Artist[];
   private defaultImage = 'assets/default-image.png';
+  private favorites = [];
+  private searchText = '';
 
-  constructor(private spotifyService: SpotifyService, private tokenService: TokenService) {
+  constructor(private route: ActivatedRoute, 
+    private spotifyService: SpotifyService, 
+    private tokenService: TokenService, 
+    private cdRef: ChangeDetectorRef) {
     // this.spotifyService.login().subscribe(data=> console.log(data));
 
     if (this.userInfo === undefined) {
@@ -25,10 +32,23 @@ export class DashboardComponent implements OnInit {
           this.userInfo = data;
         });
     }
+
+    this.searchText = this.route.snapshot.paramMap.get('searchText');
+    if(this.searchText) {
+      this.filterChanged(this.searchText);
+    }
   }
 
   ngOnInit() {
     this.spotifyService.getToken();
+  }
+
+  ngAfterViewInit() {
+    this.favorites = this.spotifyService.getUserFavorites();
+  }
+
+  ngAfterViewChecked() {
+    this.cdRef.detectChanges();
   }
 
   filterChanged(event) {

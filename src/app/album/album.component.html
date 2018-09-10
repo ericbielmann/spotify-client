@@ -28,8 +28,9 @@
                 </a>
                 <a *ngIf="!track.preview_url" class="btn btn-secondary btn-preview" [href]="track.external_urls.spotify" target="_blank">Listen
                     in Spotify</a>
-                <span class="float-right">
-                    <i class="far fa-star" style="font-size: 30px"></i>
+                <span class="star-fav float-right d-inline-block" (click)="manageFavourite(track)">
+                    <i class="far fa-star" *ngIf="!track.isFavourite" tabindex="0" data-toggle="tooltip" title="Add to Favorites"></i>
+                    <i class="fas fa-star" *ngIf="track.isFavourite" tabindex="0" data-toggle="tooltip" title="Remove from Favorites"></i>
                 </span>
             </div>
         </div>

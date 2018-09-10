@@ -8,8 +8,7 @@ import { Component, EventEmitter, Output, Input } from '@angular/core';
 export class FilterTextComponent {
   @Output() changed: EventEmitter<string>;
   @Input() placeholder: string;
-
-  filter: string;
+  @Input() filter: string;
 
   constructor() {
     this.changed = new EventEmitter<string>();

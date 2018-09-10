@@ -95,8 +95,8 @@ export class SpotifyService {
             .get(this.searchUrl)
             .pipe(
                 catchError(this.handleError),
-                finalize(()=> this.spinnerService.hide())
-              );
+                finalize(() => this.spinnerService.hide())
+            );
     }
 
     getArtist(id: string) {
@@ -111,7 +111,7 @@ export class SpotifyService {
         return this.http.get<Artist>(this.artistUrl)
             .pipe(
                 catchError(this.handleError),
-                finalize(()=> this.spinnerService.hide())
+                finalize(() => this.spinnerService.hide())
             );
     }
 
@@ -121,7 +121,7 @@ export class SpotifyService {
         return this.http.get(this.albumsUrl)
             .pipe(
                 catchError(this.handleError),
-                finalize(()=> this.spinnerService.hide())
+                finalize(() => this.spinnerService.hide())
             );
     }
 
@@ -137,8 +137,38 @@ export class SpotifyService {
             .get(`https://api.spotify.com/v1/albums/${id}`)
             .pipe(
                 catchError(this.handleError),
-                finalize(()=> this.spinnerService.hide())
+                finalize(() => this.spinnerService.hide())
             );
+    }
+
+    getUserFavorites() {
+        let favorites = [];
+        if(sessionStorage.getItem('favorites')) {
+            favorites = JSON.parse(sessionStorage.getItem('favorites'));
+        }
+        else {
+            sessionStorage.setItem('favorites', JSON.stringify(favorites));
+        }
+        return favorites;
+    }
+
+    addUserFavorite(track) {
+        let favorites = [];
+        if(sessionStorage.getItem('favorites')) {
+            favorites = JSON.parse(sessionStorage.getItem('favorites'));
+        }
+        favorites.push(track);
+        sessionStorage.setItem('favorites', JSON.stringify(favorites));
+    }
+
+    removeUserFavorite(track) {
+        let favorites = [];
+        if(sessionStorage.getItem('favorites')) {
+            favorites = JSON.parse(sessionStorage.getItem('favorites'));
+        }
+        let index = favorites.findIndex(x=> x.id === track.id);
+        favorites.splice(index, 1);
+        sessionStorage.setItem('favorites', JSON.stringify(favorites));
     }
 
     private getOptions() {

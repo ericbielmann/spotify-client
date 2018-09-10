@@ -9,8 +9,11 @@ export class Album {
     };
     href: string;
     id: string;
-    images: object[];
+    images: any[];
     name: string;
     type: string;
     uri: string;
+    tracks: {
+        items: any[]
+    };
 }
