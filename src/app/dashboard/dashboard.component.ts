@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
     private spotifyService: SpotifyService,
     private tokenService: TokenService,
     private cdRef: ChangeDetectorRef) {
+    // this.spotifyService.login().subscribe(data=> console.log(data));
   }
 
   ngOnInit() {
@@ -38,14 +39,16 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
     if (this.searchText) {
       this.filterChanged(this.searchText);
     }
-  }
 
-  ngAfterViewInit() {
     this.favorites = this.spotifyService.getUserFavorites();
   }
 
+  ngAfterViewInit() {
+    // this.favorites = this.spotifyService.getUserFavorites();
+  }
+
   ngAfterViewChecked() {
-    this.cdRef.detectChanges();
+    // this.cdRef.detectChanges();
   }
 
   filterChanged(event) {

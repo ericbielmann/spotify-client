@@ -1,6 +1,19 @@
-<div class="d-inline-flex border rounded">
+<div class="d-inline-flex border rounded card-container w-100">
   <img [src]="image" alt="music-image" class="rounded float-left">
-  <div class="d-flex flex-column">
+  <div class="d-flex flex-column ml-3">
     <ng-content></ng-content>
   </div>
 </div>
+
+<!-- <div class="row track-container border rounded">
+  <div class="float-left col-3">
+    <img class="thumb rounded" [src]="track.albumImage">
+  </div>
+  <div class="col-9">
+    <h5>{{track.track_number}} - {{track.name}}</h5>
+    <audio *ngIf="track.preview_url" controls [src]="track.preview_url"></audio>
+    <audio *ngIf="!track.preview_url" controls [src]="track.external_urls.spotify"></audio>
+    <div>Artist: {{track.artists[0].name}}</div>
+    <div>Album: {{track.albumName}}</div>
+  </div>
+</div> -->
