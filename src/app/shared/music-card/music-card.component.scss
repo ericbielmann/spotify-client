@@ -1,9 +1,18 @@
 :host {
-  // display: block;
-  // border: 1px solid gray;
+    // display: block;
+    // border: 1px solid gray;
+    img {
+        max-width: 80px;
+        max-height: 80px;
+    }
 
-  img {
-    max-width: 80px;
-    max-height: 80px;
-  }
+    .card-container {
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border-radius: .25rem;
+        .thumb {
+            width: 6rem;
+            height: 6rem;
+        }
+    }
 }
