@@ -7,64 +7,11 @@
     <button (click)="login()" class="btn btn-success">Login</button>
   </div>
   <div class="row">
-    <filter-text (changed)="filterChanged($event)" class="float-right" [filter]="searchText" placeholder="Type the name of your favourite artist"></filter-text>
-    <!-- <music-card>
-      <h4>Title</h4>
-      <span>Some text</span>
-    </music-card> -->
+    <filter-text (changed)="filterChanged($event)" [filter]="searchText" class="float-right" placeholder="Type the name of your favourite artist"></filter-text>
   </div>
 
-  <div class="mt-4 row" *ngIf="!artistRes && favorites.length > 0">
-    <h4>Favorite Songs</h4>
-    <div class="artists d-flex flex-wrap mt-2 w-100">
-      <div *ngFor="let track of favorites" class="ml-4 mr-4">
-        <!-- <div class="row track-container border rounded">
-          <div class="float-left col-3">
-            <img class="thumb rounded" [src]="track.albumImage">
-          </div>
-          <div class="col-9">
-            <h5>{{track.track_number}} - {{track.name}}</h5>
-            <audio *ngIf="track.preview_url" controls [src]="track.preview_url"></audio>
-            <audio *ngIf="!track.preview_url" controls [src]="track.external_urls.spotify"></audio>
-            <div>Artist: {{track.artists[0].name}}</div>
-            <div>Album: {{track.albumName}}</div>
-          </div>
-        </div> -->
+  <favorite-list *ngIf="showFavorites"></favorite-list>
 
-        <music-card [image]="track.albumImage">
-          <h5>{{track.track_number}} - {{track.name}}</h5>
-          <audio *ngIf="track.preview_url" controls [src]="track.preview_url"></audio>
-          <audio *ngIf="!track.preview_url" controls [src]="track.external_urls.spotify"></audio>
-          <div>Artist: {{track.artists[0].name}}</div>
-          <div>Album: {{track.albumName}}</div>
-        </music-card>
-      </div>
-    </div>
-    <hr />
-  </div>
+  <music-search [text]="searchText" (searchChanged)="refreshSearch($event)"></music-search>
 
-  <div class="row">
-    <div *ngIf="artistRes" class="artists d-flex flex-wrap mt-2 w-100">
-      <!-- <div *ngFor="let item of artistRes" class="card border rounded ml-4 mr-5"> -->
-        <div *ngFor="let item of artistRes" class="ml-4 mr-5 w-100">      
-        <!-- <div class="row">
-          <div class="col-md-12">
-            <div class="search-res">
-              <div class="float-left">
-                <img class="artist-thumb rounded-circle" [src]="item.images.length > 0 ? item.images[0].url : defaultImage">
-              </div>
-              <a class="artist-link" [routerLink]="['/artist',item.id]">
-                <strong class="item-name">{{ item.name }}</strong>
-              </a>
-            </div>
-          </div>
-        </div> -->
-        <music-card [image]="item.images.length > 0 ? item.images[0].url : defaultImage">
-          <a class="artist-link" [routerLink]="['/artist',item.id]">
-            <strong class="item-name">{{ item.name }}</strong>
-          </a>
-        </music-card>
-      </div>
-    </div>
-  </div>
 </div>

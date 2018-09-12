@@ -1,0 +1,15 @@
+<div class="mt-4 row" *ngIf="favorites.length > 0">
+    <h4>Favorite Songs</h4>
+    <div class="favorites d-flex flex-wrap mt-2 w-100">
+        <div *ngFor="let track of favorites" class="ml-4 mr-4">
+            <music-card [image]="track.albumImage">
+                <h5>{{track.track_number}} - {{track.name}}</h5>
+                <audio *ngIf="track.preview_url" controls [src]="track.preview_url"></audio>
+                <audio *ngIf="!track.preview_url" controls [src]="track.external_urls.spotify"></audio>
+                <div>Artist: {{track.artists[0].name}}</div>
+                <div>Album: {{track.albumName}}</div>
+            </music-card>
+        </div>
+    </div>
+    <hr />
+</div>

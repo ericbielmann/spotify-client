@@ -1,8 +1,7 @@
 import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
-import { Artist } from "../models/artist";
+import { ActivatedRoute } from '@angular/router';
 import { SpotifyService } from "../services/spotify.service";
 import { TokenService } from "../core/token.service";
 
@@ -10,20 +9,18 @@ import { TokenService } from "../core/token.service";
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  providers: [SpotifyService]
+  providers: []
 })
 export class DashboardComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   private userInfo: any;
-  private artistRes: Artist[];
-  private defaultImage = 'assets/default-image.png';
-  private favorites = [];
   private searchText = '';
+  private showFavorites = true;
 
-  constructor(private route: ActivatedRoute,
-    private spotifyService: SpotifyService,
+  constructor(private spotifyService: SpotifyService,
     private tokenService: TokenService,
-    private cdRef: ChangeDetectorRef) {
+    private cdRef: ChangeDetectorRef,
+    private route: ActivatedRoute) {
     // this.spotifyService.login().subscribe(data=> console.log(data));
   }
 
@@ -35,12 +32,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
         });
     }
 
-    this.searchText = this.route.snapshot.paramMap.get('searchText');
-    if (this.searchText) {
-      this.filterChanged(this.searchText);
-    }
-
-    this.favorites = this.spotifyService.getUserFavorites();
+    this.filterChanged(this.route.snapshot.paramMap.get('searchText'));
   }
 
   ngAfterViewInit() {
@@ -51,14 +43,18 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
     // this.cdRef.detectChanges();
   }
 
-  filterChanged(event) {
-    this.spotifyService.searchMusic(event).subscribe((data: any) => {
-      this.artistRes = data.artists.items;
-    });
-  }
-
   login() {
     this.tokenService.login();
+  }
+
+  filterChanged(event) {
+    this.searchText = event;
+    this.showFavorites = !this.searchText;
+  }
+
+  refreshSearch(event) {
+    // this.searchText = event;
+    // this.showFavorites = !this.searchText;
   }
 
   //add ondestroy
