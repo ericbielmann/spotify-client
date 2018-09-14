@@ -7,11 +7,11 @@
     <button (click)="login()" class="btn btn-success">Login</button>
   </div>
   <div class="row">
-    <filter-text (changed)="filterChanged($event)" [filter]="searchText" class="float-right" placeholder="Type the name of your favourite artist"></filter-text>
+    <filter-text (changed)="filterChanged($event)" [filter]="searchText" class="w-50" placeholder="Type the name of your favourite artist"></filter-text>
   </div>
 
   <favorite-list *ngIf="showFavorites"></favorite-list>
 
-  <music-search [text]="searchText" (searchChanged)="refreshSearch($event)"></music-search>
+  <music-search *ngIf="!showFavorites" [text]="searchText" (searchChanged)="refreshSearch($event)"></music-search>
 
 </div>

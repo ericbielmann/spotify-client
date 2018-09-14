@@ -3,14 +3,17 @@ import { NgModule } from '@angular/core';
 
 import { AlbumComponent } from './album.component';
 import { AlbumRoutingModule } from './album-routing.module';
+import { AlbumTrackComponent } from "./album-track/album-track.component";
+import { SharedModule } from '../shared/shared.module';
 import { SpotifyService } from '../services/spotify.service';
 
 @NgModule({
     imports: [
         CommonModule,
-        AlbumRoutingModule
+        AlbumRoutingModule,
+        SharedModule
     ],
-    declarations: [AlbumComponent],
+    declarations: [AlbumComponent, AlbumTrackComponent],
     providers: [SpotifyService]
 })
 export class AlbumModule { }

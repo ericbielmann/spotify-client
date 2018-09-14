@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
 export class MusicCardComponent {
 
   @Input() image = 'assets/ps-icon.png';
+  @Input() isBordered: boolean = true;
 
   constructor() {
   }

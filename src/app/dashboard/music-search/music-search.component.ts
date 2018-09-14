@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { ISubscription } from "rxjs/Subscription";
 
 import { Artist } from "../../models/artist";
 import { SpotifyService } from "../../services/spotify.service";
@@ -10,11 +10,12 @@ import { SpotifyService } from "../../services/spotify.service";
     styleUrls: ['./music-search.component.scss'],
     providers: []
 })
-export class MusicSearchComponent implements OnInit {
+export class MusicSearchComponent implements OnInit, OnDestroy {
 
     private searchText: string;
     private artistRes: Artist[];
     private defaultImage = 'assets/default-image.png';
+    private subscription: ISubscription[] = [];
 
     @Output() searchChanged: EventEmitter<string> = new EventEmitter<string>();
     @Input()
@@ -38,9 +39,15 @@ export class MusicSearchComponent implements OnInit {
         // }
     }
 
+    ngOnDestroy() {
+        for (let sub of this.subscription) {
+            sub.unsubscribe();
+        }
+    }
+
     filterChanged(text) {
-        this.spotifyService.searchMusic(text).subscribe((data: any) => {
+        this.subscription.push(this.spotifyService.searchMusic(text).subscribe((data: any) => {
             this.artistRes = data.artists.items;
-        });
+        }));
     }
 }

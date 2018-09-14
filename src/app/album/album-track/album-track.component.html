@@ -1,0 +1,14 @@
+<div class="album-tracks">
+    <h2>Album Tracks</h2>
+    <div *ngFor="let track of tracks">
+        <div class="track-container border rounded">
+            <h5>{{track.track_number}} - {{track.name}}</h5>
+            <audio *ngIf="track.preview_url" controls [src]="track.preview_url"></audio>
+            <audio *ngIf="!track.preview_url" controls [src]="track.external_urls.spotify"></audio>
+            <span class="star-fav float-right d-inline-block" (click)="manageFavourite(track)">
+                <i class="far fa-star" *ngIf="!track.isFavourite" tabindex="0" data-toggle="tooltip" title="Add to Favorites"></i>
+                <i class="fas fa-star" *ngIf="track.isFavourite" tabindex="0" data-toggle="tooltip" title="Remove from Favorites"></i>
+            </span>
+        </div>
+    </div>
+</div>

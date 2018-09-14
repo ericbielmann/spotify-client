@@ -1,7 +1,7 @@
 <div id="album" *ngIf="album">
     <header class="album-header">
         <div class="row">
-            <div class="col-md-4 text-center">
+            <!-- <div class="col-md-4 text-center">
                 <div *ngIf="album.images.length > 0">
                     <img class="album-thumb" [src]="album.images[0].url">
                 </div>
@@ -15,24 +15,33 @@
                 <h2>{{album.name}}</h2>
                 <h5>Release Date: {{album.release_date}}</h5>
                 <a class="btn btn-secondary" [href]="album.external_urls.spotify" target="_blank">View in Spotify</a>
-            </div>
+            </div> -->
+
+            <music-card [image]="album.images[0].url" [isBordered]="false">
+                <h2>{{album.name}}</h2>
+                <h4 *ngIf="album.artists.length > 0">
+                    <span *ngFor="let artist of album.artists">
+                        {{artist.name}} - {{album.release_date | date:'yyyy'}}
+                    </span>
+                </h4>
+                <!-- <h5>Release Date: {{album.release_date.getFullYear()}}</h5> -->
+                <!-- <a class="btn btn-secondary" [href]="album.external_urls.spotify" target="_blank">View in Spotify</a> -->
+            </music-card>
         </div>
     </header>
-    <div class="album-tracks">
+    <!-- <div class="album-tracks">
         <h2>Album Tracks</h2>
         <div *ngFor="let track of album.tracks.items">
             <div class="track-container border rounded">
                 <h5>{{track.track_number}} - {{track.name}}</h5>
-                <a *ngIf="track.preview_url" class="btn btn-secondary btn-preview" [href]="track.preview_url" target="_blank">Preview
-                    Track
-                </a>
-                <a *ngIf="!track.preview_url" class="btn btn-secondary btn-preview" [href]="track.external_urls.spotify" target="_blank">Listen
-                    in Spotify</a>
+                <audio *ngIf="track.preview_url" controls [src]="track.preview_url"></audio>
+                <audio *ngIf="!track.preview_url" controls [src]="track.external_urls.spotify"></audio>
                 <span class="star-fav float-right d-inline-block" (click)="manageFavourite(track)">
                     <i class="far fa-star" *ngIf="!track.isFavourite" tabindex="0" data-toggle="tooltip" title="Add to Favorites"></i>
                     <i class="fas fa-star" *ngIf="track.isFavourite" tabindex="0" data-toggle="tooltip" title="Remove from Favorites"></i>
                 </span>
             </div>
         </div>
-    </div>
+    </div> -->
+    <album-track [tracks]="album.tracks.items" [albumName]="album.name" [albumImage]="album.images[0].url"></album-track>
 </div>

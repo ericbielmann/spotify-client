@@ -1,0 +1,12 @@
+<div class="row">
+    <div *ngIf="albums" class="albums d-flex flex-wrap mt-2 w-100">
+        <div *ngFor="let album of albums" class="ml-4 mr-5">
+            <music-card [image]="album.images[0].url">
+                <a class="album-link" [routerLink]="['/album/',album.id]">
+                    <strong class="item-name">{{ album.name }}</strong>
+                </a>
+                <span>{{album.release_date | date:'yyyy'}}</span>
+            </music-card>
+        </div>
+    </div>
+</div>
