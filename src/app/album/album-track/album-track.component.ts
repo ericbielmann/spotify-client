@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { Album } from '../../models/album';
-import { SpotifyService } from "../../services/spotify.service";
 import { AlbumRoutingModule } from '../album-routing.module';
+import { SpotifyService } from "../../services/spotify.service";
+import { ToastService } from '../../core/toast.service';
 
 @Component({
     selector: 'album-track',
@@ -18,7 +19,8 @@ export class AlbumTrackComponent implements OnInit {
 
     private favorites = [];
 
-    constructor(private spotifyService: SpotifyService) { }
+    constructor(private spotifyService: SpotifyService,
+        private toastService: ToastService) { }
 
     ngOnInit() {
         this.favorites = this.spotifyService.getUserFavorites();
@@ -41,9 +43,11 @@ export class AlbumTrackComponent implements OnInit {
             track.albumName = this.albumName;
             track.albumImage = this.albumImage;
             this.spotifyService.addUserFavorite(track);
+            this.toastService.success('Track added.')
         }
         else {
             this.spotifyService.removeUserFavorite(track);
+            this.toastService.success('Track removed.')
         }
     }
 }
